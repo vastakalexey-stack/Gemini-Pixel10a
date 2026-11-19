@@ -3,11 +3,14 @@
     <application
         android:allowBackup="false"
         android:label="Gemini"
-        android:theme="@android:style/Theme.Material.Light.NoActionBar"
+        android:icon="@drawable/ic_gemini"
+        android:roundIcon="@drawable/ic_gemini"
+        android:theme="@android:style/Theme.Material.NoActionBar"
         android:usesCleartextTraffic="false">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
