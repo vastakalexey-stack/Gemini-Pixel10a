@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shortcut_chatgpt_short">GPT Chat</string>
+    <string name="shortcut_chatgpt_long">Открыть ChatGPT в Chrome</string>
+    <string name="shortcut_voice_short">Голосовой ввод</string>
+    <string name="shortcut_voice_long">Сказать запрос Gemini</string>
+    <string name="shortcut_documents_short">Документы</string>
+    <string name="shortcut_documents_long">Выбрать документ для Gemini</string>
+    <string name="shortcut_calendar_short">Календарь</string>
+    <string name="shortcut_calendar_long">Создать напоминание</string>
+</resources>
