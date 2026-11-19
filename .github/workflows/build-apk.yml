@@ -5,6 +5,10 @@ on:
   push:
     branches: [ "main" ]
 
+concurrency:
+  group: android-apk-main
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,10 +20,20 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Restore persistent debug signing key
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: gemini-pixel10a-debug-signing-v1
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Set increasing app version
+        run: |
+          VERSION_CODE=$((100 + GITHUB_RUN_NUMBER))
+          sed -i "s/versionCode [0-9]*/versionCode $VERSION_CODE/" app/build.gradle
+          sed -i "s/versionName '[^']*'/versionName '1.1.$GITHUB_RUN_NUMBER'/" app/build.gradle
       - name: Build debug APK
         run: gradle assembleDebug
       - name: Upload APK
