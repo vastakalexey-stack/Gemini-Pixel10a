@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
-    <shortcut
-        android:shortcutId="voice"
-        android:enabled="true"
-        android:icon="@mipmap/ic_gemini"
-        android:shortcutShortLabel="Голосовой ввод"
+    <shortcut android:shortcutId="chatgpt" android:enabled="true"
+        android:icon="@mipmap/ic_gemini" android:shortcutShortLabel="GPT Chat"
+        android:shortcutLongLabel="Открыть ChatGPT в Chrome">
+        <intent android:action="ru.pixel10a.geminiwrapper.CHATGPT"
+            android:targetPackage="ru.pixel10a.geminiwrapper"
+            android:targetClass="ru.pixel10a.geminiwrapper.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="voice" android:enabled="true"
+        android:icon="@mipmap/ic_gemini" android:shortcutShortLabel="Голосовой ввод"
         android:shortcutLongLabel="Сказать запрос Gemini">
-        <intent
-            android:action="ru.pixel10a.geminiwrapper.VOICE"
+        <intent android:action="ru.pixel10a.geminiwrapper.VOICE"
             android:targetPackage="ru.pixel10a.geminiwrapper"
             android:targetClass="ru.pixel10a.geminiwrapper.MainActivity" />
     </shortcut>
-    <shortcut
-        android:shortcutId="documents"
-        android:enabled="true"
-        android:icon="@mipmap/ic_gemini"
-        android:shortcutShortLabel="Документы"
+    <shortcut android:shortcutId="documents" android:enabled="true"
+        android:icon="@mipmap/ic_gemini" android:shortcutShortLabel="Документы"
         android:shortcutLongLabel="Выбрать документ для Gemini">
-        <intent
-            android:action="ru.pixel10a.geminiwrapper.DOCUMENT"
+        <intent android:action="ru.pixel10a.geminiwrapper.DOCUMENT"
             android:targetPackage="ru.pixel10a.geminiwrapper"
             android:targetClass="ru.pixel10a.geminiwrapper.MainActivity" />
     </shortcut>
-    <shortcut
-        android:shortcutId="calendar"
-        android:enabled="true"
-        android:icon="@mipmap/ic_gemini"
-        android:shortcutShortLabel="Календарь"
+    <shortcut android:shortcutId="calendar" android:enabled="true"
+        android:icon="@mipmap/ic_gemini" android:shortcutShortLabel="Календарь"
         android:shortcutLongLabel="Создать напоминание">
-        <intent
-            android:action="ru.pixel10a.geminiwrapper.CALENDAR"
+        <intent android:action="ru.pixel10a.geminiwrapper.CALENDAR"
             android:targetPackage="ru.pixel10a.geminiwrapper"
             android:targetClass="ru.pixel10a.geminiwrapper.MainActivity" />
     </shortcut>
