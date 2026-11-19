@@ -14,7 +14,8 @@ import java.util.Locale;
 
 public class MainActivity extends Activity {
  private static final String URL="https://gemini.google.com/app";
- private static final int VOICE=41,DOC=42;\n private boolean geminiOpened=false;
+ private static final int VOICE=41,DOC=42;
+ private boolean geminiOpened=false;
  @Override public void onCreate(Bundle b){super.onCreate(b);String a=getIntent().getAction();
   if("ru.pixel10a.geminiwrapper.VOICE".equals(a)){voice();return;}
   if("ru.pixel10a.geminiwrapper.DOCUMENT".equals(a)){document();return;}
