@@ -15,40 +15,40 @@ import java.util.Locale;
 
 public class MainActivity extends Activity {
     private static final String GEMINI_URL = "https://gemini.google.com/app";
+    private static final String CHATGPT_URL = "https://chatgpt.com/";
     private static final String ACTION_VOICE = "ru.pixel10a.geminiwrapper.VOICE";
     private static final String ACTION_DOCUMENT = "ru.pixel10a.geminiwrapper.DOCUMENT";
     private static final String ACTION_CALENDAR = "ru.pixel10a.geminiwrapper.CALENDAR";
+    private static final String ACTION_CHATGPT = "ru.pixel10a.geminiwrapper.CHATGPT";
     private static final int VOICE_REQUEST = 41, DOCUMENT_REQUEST = 42;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         handleLaunch(getIntent());
     }
-
     @Override protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
         handleLaunch(intent);
     }
-
     private void handleLaunch(Intent intent) {
         String action = intent == null ? null : intent.getAction();
         if (ACTION_VOICE.equals(action)) startVoice();
         else if (ACTION_DOCUMENT.equals(action)) chooseDocument();
         else if (ACTION_CALENDAR.equals(action)) createCalendarEvent();
+        else if (ACTION_CHATGPT.equals(action)) openUrl(CHATGPT_URL, "ChatGPT");
         else openGemini();
     }
-
-    private void openGemini() {
+    private void openGemini() { openUrl(GEMINI_URL, "Gemini"); }
+    private void openUrl(String url, String name) {
         try {
             new CustomTabsIntent.Builder().setShowTitle(true).build()
-                    .launchUrl(this, Uri.parse(GEMINI_URL));
+                    .launchUrl(this, Uri.parse(url));
         } catch (Exception e) {
-            Toast.makeText(this, "Не удалось открыть Gemini", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Не удалось открыть " + name, Toast.LENGTH_LONG).show();
         }
         finish();
     }
-
     private void startVoice() {
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -60,7 +60,6 @@ public class MainActivity extends Activity {
             finish();
         }
     }
-
     private void chooseDocument() {
         Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         i.setType("*/*");
@@ -71,7 +70,6 @@ public class MainActivity extends Activity {
             finish();
         }
     }
-
     private void createCalendarEvent() {
         Intent i = new Intent(Intent.ACTION_INSERT);
         i.setData(CalendarContract.Events.CONTENT_URI);
@@ -81,7 +79,6 @@ public class MainActivity extends Activity {
         catch (Exception e) { Toast.makeText(this, "Календарь недоступен", Toast.LENGTH_LONG).show(); }
         finish();
     }
-
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == VOICE_REQUEST && resultCode == RESULT_OK && data != null) {
