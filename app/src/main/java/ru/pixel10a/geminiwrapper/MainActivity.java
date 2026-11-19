@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class MainActivity extends Activity {
  private static final String URL="https://gemini.google.com/app";
- private static final int VOICE=41,DOC=42;
+ private static final int VOICE=41,DOC=42;\n private boolean geminiOpened=false;
  @Override public void onCreate(Bundle b){super.onCreate(b);String a=getIntent().getAction();
   if("ru.pixel10a.geminiwrapper.VOICE".equals(a)){voice();return;}
   if("ru.pixel10a.geminiwrapper.DOCUMENT".equals(a)){document();return;}
@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
    .setMessage("Разрешите отображение поверх других приложений, чтобы открыть меню Gemini поверх страницы.")
    .setPositiveButton("Разрешить",(d,w)->startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,Uri.parse("package:"+getPackageName()))))
    .setNegativeButton("Без меню",(d,w)->open()).show();return;}
-  startService(new Intent(this,GeminiOverlayService.class));open();}
- @Override protected void onResume(){super.onResume();if(getIntent()!=null&&getIntent().getAction()==null&&Settings.canDrawOverlays(this)&&!isFinishing()){startService(new Intent(this,GeminiOverlayService.class));}}
+  startService(new Intent(this,GeminiOverlayService.class));geminiOpened=true;open();}
+ @Override protected void onResume(){super.onResume();if(!geminiOpened && getIntent()!=null && getIntent().getAction()==null && Settings.canDrawOverlays(this) && !isFinishing()){geminiOpened=true;startService(new Intent(this,GeminiOverlayService.class));open();}}
  private void open(){try{new CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(this,Uri.parse(URL));}catch(Exception e){Toast.makeText(this,"Не удалось открыть Gemini",Toast.LENGTH_LONG).show();}finish();}
  private void voice(){Intent i=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);i.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Locale.getDefault());i.putExtra(RecognizerIntent.EXTRA_PROMPT,"Скажите запрос для Gemini");try{startActivityForResult(i,VOICE);}catch(Exception e){Toast.makeText(this,"Голосовой ввод недоступен",Toast.LENGTH_LONG).show();finish();}}
  private void document(){Intent i=new Intent(Intent.ACTION_OPEN_DOCUMENT);i.setType("*/*");i.addCategory(Intent.CATEGORY_OPENABLE);startActivityForResult(i,DOC);}
